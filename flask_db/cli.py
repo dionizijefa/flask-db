@@ -58,6 +58,19 @@ then rename the .new file by removing its .new file extension."""
 
     return None
 
+@db.command()
+@with_appcontext
+def drop(ctx):
+    """
+    Drop, create and seed your database (careful in production).
+    """
+    db = current_app.extensions["sqlalchemy"].db
+    db_uri = current_app.config["SQLALCHEMY_DATABASE_URI"]
+
+    db.drop_all()
+
+    return None
+
 
 @db.command()
 @click.option("--with-testdb", is_flag=True,
